@@ -30,6 +30,22 @@ describe ItemRepository do
     expect(repo.all.length).to eq 4
     expect(repo.all.last.id).to eq '4'
   end
+
+  it 'Should delete the passed item from the database' do
+    repo = ItemRepository.new
+    repo.remove(3)
+    expect(repo.all.length).to eq 2
+    expect(repo.all.last.id).to eq '2'
+  end
+
+  it 'Should update the price of a given item' do
+    repo = ItemRepository.new
+    item = repo.all[1]
+    item.unit_price = 100.00
+    repo.update(repo.all[1])
+    updated = repo.all[1]
+    expect(updated.unit_price).to eq (100.00)
+  end
 end
 
 describe ItemRepository do
