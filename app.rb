@@ -64,7 +64,13 @@ class Application
   end
 
   def selection_4
-
+    @io.puts "Enter the id for item you wish to update"
+    id = @io.gets.chomp
+    item = @item_repository.find(id)
+    @io.puts "Enter the new price for this item"
+    item.unit_price = @io.gets.chomp
+    @item_repository.update(item)
+    @io.puts "The price of #{item.item_name} has been updated"
   end
 
   def selection_5
