@@ -13,14 +13,13 @@ class Application
 
   def run
     while true do 
-      @io.puts "What do you want to do?"
-      @io.puts "1 = list all shop items\n2 = create a new item\n3 = list all orders"
-      @io.puts "4 = create a new order\n5 = close program"
+      @io.puts "What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = list all orders\n4 = create a new order\n5 = close program"
       selection = @io.gets.chomp
       if selection == "1"
         @item_repository.all.each do |item| 
           @io.puts "##{item.id} - #{item.item_name} - Unit price: #{item.unit_price} - Quantity: #{item.quantity}"
         end
+
       elsif selection == "2"
         item = Item.new
         @io.puts "Enter the items name:"
@@ -31,10 +30,12 @@ class Application
         item.quantity = @io.gets.chomp
         @item_repository.create(item)
         @io.puts "#{item.item_name} has been added to your inventory"
+
       elsif selection == "3"
         @order_repository.all.each do |order| 
           @io.puts "##{order.id} - Customer name: #{order.customer_name} - Date placed: #{order.date_placed}"
         end
+
       elsif selection == "4"
         order = Order.new
         @io.puts "Enter the customer name for this order:"
@@ -45,6 +46,7 @@ class Application
         order.item_id = @io.gets.chomp
         @order_repository.create(order)
         @io.puts "#{order.customer_name}'s order has been added to your order list"
+
       elsif selection == "5"
         break
       else
