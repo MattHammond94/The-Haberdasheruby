@@ -16,43 +16,57 @@ class Application
       @io.puts "What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = list all orders\n4 = create a new order\n5 = close program"
       selection = @io.gets.chomp
       if selection == "1"
-        @item_repository.all.each do |item| 
-          @io.puts "##{item.id} - #{item.item_name} - Unit price: #{item.unit_price} - Quantity: #{item.quantity}"
-        end
-
+        selection_1
       elsif selection == "2"
-        item = Item.new
-        @io.puts "Enter the items name:"
-        item.item_name = @io.gets.chomp
-        @io.puts "Enter the items unit price:"
-        item.unit_price = @io.gets.chomp
-        @io.puts "Enter the items quantity:"
-        item.quantity = @io.gets.chomp
-        @item_repository.create(item)
-        @io.puts "#{item.item_name} has been added to your inventory"
-
+        selection_2
       elsif selection == "3"
-        @order_repository.all.each do |order| 
-          @io.puts "##{order.id} - Customer name: #{order.customer_name} - Date placed: #{order.date_placed}"
-        end
-
+        selection_3
       elsif selection == "4"
-        order = Order.new
-        @io.puts "Enter the customer name for this order:"
-        order.customer_name = @io.gets.chomp
-        @io.puts "When was this this order placed?:"
-        order.date_placed = @io.gets.chomp
-        @io.puts "Enter the item id assosciated with this order:"
-        order.item_id = @io.gets.chomp
-        @order_repository.create(order)
-        @io.puts "#{order.customer_name}'s order has been added to your order list"
-
+        selection_4
       elsif selection == "5"
         break
       else
         fail "This is not a valid selection"
       end
     end
+  end
+
+  private
+
+  def selection_1
+    @item_repository.all.each do |item| 
+      @io.puts "##{item.id} - #{item.item_name} - Unit price: #{item.unit_price} - Quantity: #{item.quantity}"
+    end
+  end
+
+  def selection_2
+    item = Item.new
+    @io.puts "Enter the items name:"
+    item.item_name = @io.gets.chomp
+    @io.puts "Enter the items unit price:"
+    item.unit_price = @io.gets.chomp
+    @io.puts "Enter the items quantity:"
+    item.quantity = @io.gets.chomp
+    @item_repository.create(item)
+    @io.puts "#{item.item_name} has been added to your inventory"
+  end
+
+  def selection_3
+    @order_repository.all.each do |order| 
+      @io.puts "##{order.id} - Customer name: #{order.customer_name} - Date placed: #{order.date_placed}"
+    end
+  end
+
+  def selection_4
+    order = Order.new
+    @io.puts "Enter the customer name for this order:"
+    order.customer_name = @io.gets.chomp
+    @io.puts "When was this this order placed?:"
+    order.date_placed = @io.gets.chomp
+    @io.puts "Enter the item id assosciated with this order:"
+    order.item_id = @io.gets.chomp
+    @order_repository.create(order)
+    @io.puts "#{order.customer_name}'s order has been added to your order list"
   end
 end
 
