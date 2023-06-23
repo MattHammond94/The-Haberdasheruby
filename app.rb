@@ -14,7 +14,7 @@ class Application
 
   def run
     while true do 
-      @io.puts "What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = list all orders\n4 = create a new order\n5 = close program"
+      @io.puts "What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = Delete an item\n4 = Change an items price\n5 = list all orders\n6 = create a new order\n7 = close program"
       selection = @io.gets.chomp
       if selection == "1"
         selection_1
@@ -25,6 +25,10 @@ class Application
       elsif selection == "4"
         selection_4
       elsif selection == "5"
+        selection_5
+      elsif selection == "6"
+        selection_6
+      elsif selection == "7"
         break
       else
         fail "This is not a valid selection"
@@ -53,12 +57,20 @@ class Application
   end
 
   def selection_3
+    
+  end
+
+  def selection_4
+
+  end
+
+  def selection_5
     @order_repository.all.each do |order| 
       @io.puts "##{order.id} - Customer name: #{order.customer_name} - Date placed: #{order.date_placed}"
     end
   end
 
-  def selection_4
+  def selection_6
     order = Order.new
     @io.puts "Enter the customer name for this order:"
     order.customer_name = @io.gets.chomp
@@ -87,7 +99,6 @@ end
 # Ensure that the unit price is always seperated by a dot - regex => ".match?(/\d+.\d+/) else fail"
 
 # For order:
-# Throw a fail if the date is not formatted correctly 
 # Throw a fail if the item id is < 1 || > repo.all.length 
 
 # Code also needs to be reactored where possible to meet rubocop params.
