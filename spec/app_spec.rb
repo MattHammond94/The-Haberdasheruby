@@ -50,11 +50,24 @@ describe Application do
   end
 
   it 'Should delete the selected item from the database when 3 is selected' do
-
+    io = double :io
+    order_repo = double :order
+    item_repo = ItemRepository.new
+    expect(io).to receive(:puts).with("What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = Delete an item\n4 = Change an items price\n5 = list all orders\n6 = create a new order\n7 = close program").ordered
+    expect(io).to receive(:gets).and_return("3").ordered
+    expect(io).to receive(:puts).with("Enter the id for item you wish to delete").ordered
+    expect(io).to receive(:gets).and_return("1").ordered
+    expect(io).to receive(:puts).with("Candlestick has been removed from your inventory").ordered
+    expect(io).to receive(:puts).with("What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = Delete an item\n4 = Change an items price\n5 = list all orders\n6 = create a new order\n7 = close program").ordered
+    expect(io).to receive(:gets).and_return("7").ordered
+    app = Application.new('shop_manager_test', io, item_repo, order_repo)
+    app.run
+    expect(item_repo.all.length).to eq 2
+    expect(item_repo.all.first.item_name).to eq 'Lead-Pipe'
   end
 
   it 'Should update the price of the selected item when 4 is selected' do
-    
+
   end
 
   it 'Should return all shop orders in a list when 5 is selected by user' do
