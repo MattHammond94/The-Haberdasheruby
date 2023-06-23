@@ -57,7 +57,10 @@ class Application
   end
 
   def selection_3
-    
+    @io.puts "Enter the id for item you wish to delete"
+    id = @io.gets.chomp
+    @io.puts "#{@item_repository.find(id).item_name} has been removed from your inventory"
+    @item_repository.remove(id)
   end
 
   def selection_4
