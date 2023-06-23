@@ -35,7 +35,7 @@ describe Application do
     expect(io).to receive(:gets).and_return("2").ordered
     expect(io).to receive(:puts).with("Enter the items name:").ordered
     expect(io).to receive(:gets).and_return("Dagger").ordered
-    expect(io).to receive(:puts).with("Enter the items unit price:").ordered
+    expect(io).to receive(:puts).with("Enter the items price:").ordered
     expect(io).to receive(:gets).and_return("14.99").ordered
     expect(io).to receive(:puts).with("Enter the items quantity:").ordered
     expect(io).to receive(:gets).and_return("3").ordered
@@ -46,7 +46,7 @@ describe Application do
     app.run
     expect(item_repo.all.length).to eq 4
     expect(item_repo.all.last.item_name).to eq 'Dagger'
-    expect(item_repo.all.last.unit_price).to eq '14.99'
+    expect(item_repo.all.last.unit_price).to eq 14.99
   end
 
   it 'Should return all shop orders in a list when 3 is selected by user' do

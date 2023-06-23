@@ -25,10 +25,17 @@ describe ItemRepository do
     item = double :item, item_name: 'Big Skeng', unit_price: 3.99, quantity: 5
     repo.create(item)
     expect(repo.all.last.item_name).to eq 'Big Skeng'
-    expect(repo.all.last.unit_price).to eq '3.99'
+    expect(repo.all.last.unit_price).to eq 3.99
     expect(repo.all.last.quantity).to eq '5'
     expect(repo.all.length).to eq 4
     expect(repo.all.last.id).to eq '4'
+  end
+
+  it 'Should return the chosen maker that corresponds with passed id' do
+    repo = ItemRepository.new
+    selected = repo.find(1)
+    expect(selected.item_name).to eq ('Candlestick')
+    expect(selected.unit_price).to eq (1.99)
   end
 
   it 'Should delete the passed item from the database' do
@@ -40,11 +47,11 @@ describe ItemRepository do
 
   it 'Should update the price of a given item' do
     repo = ItemRepository.new
-    item = repo.all[1]
+    item = repo.find(1)
     item.unit_price = 100.00
-    repo.update(repo.all[1])
-    updated = repo.all[1]
-    expect(updated.unit_price).to eq (100.00)
+    repo.update(item)
+    updated = repo.find(1)
+    expect(updated.unit_price).to eq(100.00)
   end
 end
 

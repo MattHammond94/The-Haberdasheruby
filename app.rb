@@ -36,7 +36,7 @@ class Application
 
   def selection_1
     @item_repository.all.each do |item| 
-      @io.puts "##{item.id} - #{item.item_name} - Unit price: #{item.unit_price} - Quantity: #{item.quantity}"
+      @io.puts "##{item.id} - #{item.item_name} - Unit price: #{format('%.2f', item.unit_price)} - Quantity: #{item.quantity}"
     end
   end
 
@@ -44,8 +44,8 @@ class Application
     item = Item.new
     @io.puts "Enter the items name:"
     item.item_name = @io.gets.chomp
-    @io.puts "Enter the items unit price:"
-    item.unit_price = @io.gets.chomp
+    @io.puts "Enter the items price:"
+    item.unit_price = @io.gets.chomp.to_f
     @io.puts "Enter the items quantity:"
     item.quantity = @io.gets.chomp
     @item_repository.create(item)
@@ -62,8 +62,6 @@ class Application
     order = Order.new
     @io.puts "Enter the customer name for this order:"
     order.customer_name = @io.gets.chomp
-    # @io.puts "When was this this order placed?:"
-    # order.date_placed = @io.gets.chomp
     order.date_placed = Date.today
     @io.puts "Enter the item id assosciated with this order:"
     order.item_id = @io.gets.chomp
