@@ -67,7 +67,21 @@ describe Application do
   end
 
   it 'Should update the price of the selected item when 4 is selected' do
-
+    io = double :io
+    order_repo = double :order
+    item_repo = ItemRepository.new
+    expect(io).to receive(:puts).with("What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = Delete an item\n4 = Change an items price\n5 = list all orders\n6 = create a new order\n7 = close program").ordered
+    expect(io).to receive(:gets).and_return("4").ordered
+    expect(io).to receive(:puts).with("Enter the id for item you wish to update").ordered
+    expect(io).to receive(:gets).and_return("2").ordered
+    expect(io).to receive(:puts).with("Enter the price for this item").ordered
+    expect(io).to receive(:gets).and_return("29.99").ordered
+    expect(io).to receive(:puts).with("The price of Lead-Pipe has been updated").ordered
+    expect(io).to receive(:puts).with("What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = Delete an item\n4 = Change an items price\n5 = list all orders\n6 = create a new order\n7 = close program").ordered
+    expect(io).to receive(:gets).and_return("7").ordered
+    app = Application.new('shop_manager_test', io, item_repo, order_repo)
+    app.run
+    expect(item_repo.all[1].unit_price).to eq 29.99
   end
 
   it 'Should return all shop orders in a list when 5 is selected by user' do
