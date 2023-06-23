@@ -72,14 +72,13 @@ describe Application do
 
   it 'Should create a new order object and add it to the DB when 4 is selected' do
     io = double :io
+    date = Date.today
     order_repo = OrderRepository.new
     item_repo = double :item
     expect(io).to receive(:puts).with("What do you want to do?\n1 = list all shop items\n2 = create a new item\n3 = list all orders\n4 = create a new order\n5 = close program").ordered
     expect(io).to receive(:gets).and_return("4").ordered
     expect(io).to receive(:puts).with("Enter the customer name for this order:").ordered
     expect(io).to receive(:gets).and_return("Lord Gray").ordered
-    expect(io).to receive(:puts).with("When was this this order placed?:").ordered
-    expect(io).to receive(:gets).and_return("12/12/2023").ordered
     expect(io).to receive(:puts).with("Enter the item id assosciated with this order:").ordered
     expect(io).to receive(:gets).and_return("2").ordered
     expect(io).to receive(:puts).with("Lord Gray's order has been added to your order list").ordered
@@ -89,7 +88,7 @@ describe Application do
     app.run
     expect(order_repo.all.length).to eq 10
     expect(order_repo.all.last.customer_name).to eq 'Lord Gray'
-    expect(order_repo.all.last.date_placed).to eq '2023-12-12'
+    expect(order_repo.all.last.date_placed).to eq "#{date}"
     expect(order_repo.all.last.item_id).to eq '2'
   end
 

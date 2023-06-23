@@ -1,6 +1,7 @@
 require_relative 'lib/database_connection'
 require_relative 'lib/item_repository'
 require_relative 'lib/order_repository'
+require 'date'
 
 class Application 
 
@@ -61,8 +62,9 @@ class Application
     order = Order.new
     @io.puts "Enter the customer name for this order:"
     order.customer_name = @io.gets.chomp
-    @io.puts "When was this this order placed?:"
-    order.date_placed = @io.gets.chomp
+    # @io.puts "When was this this order placed?:"
+    # order.date_placed = @io.gets.chomp
+    order.date_placed = Date.today
     @io.puts "Enter the item id assosciated with this order:"
     order.item_id = @io.gets.chomp
     @order_repository.create(order)
