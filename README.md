@@ -87,8 +87,8 @@ createdb shop_manager
 psql -h 127.0.0.1 shop_manager < ./spec/DB_table_setup.sql
 ```
 If using table plus you may then want to select ```cmd+R``` to refresh the database and see your created tables.
----
 
+===
 Notes on using a database for tests:
 
 If you are planning on using rspec to run tests and also view the current test coverage then a further test database will need to be created and seeded with the correct tables: 
@@ -104,12 +104,12 @@ then run:
  rspec
  ```
 
-On line 5 of the spec_helper file you can see that the tests currently use the databse aptly named 'shop_manager_test' If you have chosen to use a different database name for your tests ensure this is updated accordingly. Also note that the test files are currently coded to reset the tables in the database after each test. If creating your own seed files for tests please ensure this is also updated in the spc files to avoid further fails (see line 5 in the respective spec files.)
+On line 5 of the spec_helper file you can see that the tests currently use the database ```'shop_manager_test'``` If you have chosen to use a different database name for your tests ensure this is updated accordingly. Also note that the test files are currently coded to reset the tables in the database after each test. If creating your own seed files for tests please ensure this is also updated in the spc files to avoid further fails (see line 5 in the respective spec files.)
 
 
 ## Running the program
 
-To run the program simply run ```ruby app.rb``` from the command line and follow the prompts.
+To run the program run ```ruby app.rb``` from the command line and follow the prompts.
 
 ## Notes
 
@@ -119,32 +119,32 @@ Most of these issues revolve around user input as there are many times user inpu
 
 I would like to add further fail/error handlers at these stages: 
 
-When creating an item:
-Ensure the name is always an acceptable string (Acceptable would need to be defined and then represented as a regex - Can also add length of string param)
-Ensure the price is an acceptable float value, greater than 0.00 and is formatted correctly.
-Ensure the quantity is an acceptable int value always greater than 0.
+> When creating an item:
+> Ensure the name is always an acceptable string (Acceptable would need to be defined and then represented as a regex - Can also add length of string param)
+> Ensure the price is an acceptable float value, greater than 0.00 and is formatted correctly.
+> Ensure the quantity is an acceptable int value always greater than 0.
 
-When deleting an item:
-Ensure the id taken from user is only ever an int between 1-max item id in DB.
-Ensure the id taken does exist in DB.
-=> if .id < 1 || > repo.all.length
+> When deleting an item:
+> Ensure the id taken from user is only ever an int between 1-max item id in DB.
+> Ensure the id taken does exist in DB.
+> => if .id < 1 || > repo.all.length
 
-When updating an item:
-Ensure the id taken is only ever an integer.
-Ensure this id does exist in DB.
-Ensure the new price is an acceptable float value => regex => ".match?(/\d+.\d+/) else fail"
-Allow user to update other elements (Not just the price.)
+> When updating an item:
+> Ensure the id taken is only ever an integer.
+> Ensure this id does exist in DB.
+> Ensure the new price is an acceptable float value => regex => ".match?(/\d+.\d+/) else fail"
+> Allow user to update other elements (Not just the price.)
 
-When creating a new order:
-Ensure the name is always an acceptable string (Acceptable would need to be defined and then represented as a regex - Can also add length of string param)
-Ensure the id taken is an int only, > 0 and does exist in DB.
+> When creating a new order:
+> Ensure the name is always an acceptable string (Acceptable would need to be defined and then represented as a regex - Can also add length of string param)
+> Ensure the id taken is an int only, > 0 and does exist in DB.
 
-Whilst adding further fail params. I would also like to use this opportunity to look further into SQL. Commands like 'Not Null' and VARCHAR could aid in my error handling to ensure I am only getting exactly what I want when user is given the option to input a value.
+> Whilst adding further fail params. I would also like to use this opportunity to look further into SQL. Commands like 'Not Null' and VARCHAR could aid in my error handling to ensure I am only getting exactly what I want when user is given the option to input a value.
 
-Other changes/improvements that can be made:
-When listing all items ensure they are ordered in order of ID after items have been updated.
-When listing all orders showcase the name of the items that have been ordered.
-When an Order has been made update the Quantity of the Item automatically.
-Prevent the ordering of an item is its Quantity < 0.
-Reformat the date displayed when order list is displayed.
-Code needs to be reactored where possible to meet rubocop params.
+> Other changes/improvements that can be made:
+> When listing all items ensure they are ordered in order of ID after items have been updated.
+> When listing all orders showcase the name of the items that have been ordered.
+> When an Order has been made update the Quantity of the Item automatically.
+> Prevent the ordering of an item is its Quantity < 0.
+> Reformat the date displayed when order list is displayed.
+> Code needs to be reactored where possible to meet rubocop params.
